@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmailController;
+
+Route::get('/', function () {
+    return Inertia::render('welcome');
+})->name('home');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', [CustomerController::class, 'getstats'])->name('dashboard');
+    Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('customers/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('customers', [CustomerController::class, 'store'])->name('customers.store');
+    Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    Route::get('customers/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit');
+    Route::put('customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::get('customers/stats', [CustomerController::class, 'getstats'])->name('customers.stats');
+});
+    Route::get('send-email', [EmailController::class, 'sendBirthdayEmail'])->name('send.email');
+
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';

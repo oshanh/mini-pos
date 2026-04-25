@@ -1,0 +1,1 @@
+<p> Today is the {{ $customer->name }}'s birthday. Consider sending a cake or offer</p>
