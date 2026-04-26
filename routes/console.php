@@ -6,5 +6,5 @@ use App\Services\BirthdayMailService;
 
 Schedule::call(function () {
     app(BirthdayMailService::class)->sendBirthdayEmail();
-})->everyMinute();
+})->dailyAt('07:00');
 
